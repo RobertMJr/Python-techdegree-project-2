@@ -7,14 +7,24 @@ from affine import Affine
 from atbash import Atbash
 
 working = True
+cipher_choice = True
+letters = string.ascii_uppercase
 
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-letters = string.ascii_uppercase
-stripped_text = ''
+def strip_non_letters(txt):
+    stripped_text = ''
+    for i in txt:
+        if i.upper() not in letters and i != ' ':
+            pass
+        else:
+            stripped_text += i
+    txt = stripped_text
+    return txt
+
 
 while working:
     clear_screen()
@@ -28,15 +38,16 @@ while working:
     choice = input("Which cipher would you like to use? \n")
     if choice.upper() == 'Q':
         break
-    elif (choice.upper() == 'AFFINE' or choice.upper() == 'ATBASH' or choice.upper() == 'CAESAR' or
-            choice.upper() == 'KEYWORD'):
-        print('Excellent choice. \n')
-        text_choice = input('What is your message? (Please note that punctuation and digits will be removed) \n')
-        for i in text_choice:
-            if i.upper() not in letters and i != ' ':
-                pass
-            else:
-                stripped_text += i
-        text_choice = stripped_text
-        print(text_choice)
-        break
+    elif choice.upper == 'AFFINE':
+        cipher = Affine()
+    elif choice.upper() == 'ATBASH':
+        cipher = Atbash()
+    elif choice.upper() == 'CAESAR':
+        cipher = Caesar()
+    elif choice.upper() == 'KEYWORD':
+        cipher = Keyword()
+    else:
+        print('Sorry, that is not a valid choice. Try again. \n')
+
+
+

@@ -74,3 +74,4 @@ class Affine(Cipher):
             except KeyError:
                 decrypted += x
         return decrypted
+

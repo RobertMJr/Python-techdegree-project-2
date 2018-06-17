@@ -23,6 +23,13 @@ class Cipher:
         self.pad = pad.upper()
         self.text_code = []
         self.enco = ''
+        if len(self.text) > len(self.pad):
+            missing = len(self.text) - len(self.pad)
+            for i in range(missing):
+                self.pad += self.pad[i]
+        elif len(self.text) < len(self.pad):
+            limit = len(self.text)
+            self.pad = self.pad[:limit]
         if encrypt:
             for x, y in zip(self.text, self.pad):
                 try:
@@ -49,13 +56,14 @@ class Cipher:
                 except KeyError:
                     self.enco += x
 
-        print(self.enco)
+        return self.enco
 
     def add_padding(self, text):
         """
         Adds padding to the text.
         Returns text in blocks of 5 characters
         """
+        print('You are here')
         self.text = text
         special = list(digits)
         special_c = list(punctuation)

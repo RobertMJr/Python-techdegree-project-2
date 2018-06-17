@@ -11,7 +11,8 @@ class Atbash(Cipher):
         self.plaintext_rev = {key: value for key, value
                               in zip(string.ascii_uppercase[::-1],
                                      string.ascii_uppercase)}
-        print(self.plaintext)
+        self.plaintext[' '] = ' '
+        self.plaintext_rev[' '] = ' '
 
     def encrypt(self, text):
         """
@@ -40,3 +41,4 @@ class Atbash(Cipher):
             except IndexError:
                 decoded += x
         return decoded
+

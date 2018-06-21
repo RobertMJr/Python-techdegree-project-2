@@ -45,7 +45,6 @@ class Keyword(Cipher):
             self.encoded.insert(0, letter)
         mapping = {decode: encode for decode,
                    encode in zip(self.encoded, self.plaintext)}
-        print(mapping)
         decrypted = ''
         for letter in self.text:
             try:

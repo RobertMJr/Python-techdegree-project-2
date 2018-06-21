@@ -63,7 +63,6 @@ class Cipher:
         Adds padding to the text.
         Returns text in blocks of 5 characters
         """
-        print('You are here')
         self.text = text
         special = list(digits)
         special_c = list(punctuation)

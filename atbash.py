@@ -41,4 +41,3 @@ class Atbash(Cipher):
             except IndexError:
                 decoded += x
         return decoded
-

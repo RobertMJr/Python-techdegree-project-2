@@ -3,7 +3,10 @@ from ciphers import Cipher
 
 
 class Affine(Cipher):
+    """
+    Affine class
 
+    """
     def __init__(self):
         self.plaintext = {key: value for key,
                           value in zip(string.ascii_uppercase, range(0, 26))}
@@ -53,7 +56,7 @@ class Affine(Cipher):
         """
         Decrypts text encrypted with the affine cipher,
         two numeric keys are required,
-        same keys used for encrypting.
+        same keys  that were used for encrypting.
 
         Returns the decrypted text
         """

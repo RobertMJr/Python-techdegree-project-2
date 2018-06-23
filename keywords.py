@@ -4,6 +4,9 @@ from ciphers import Cipher
 
 
 class Keyword(Cipher):
+    """
+    Implements the behaviour of a Keyword cipher.
+    """
 
     def __init__(self):
         self.plaintext = [char for char in string.ascii_uppercase]
@@ -11,8 +14,9 @@ class Keyword(Cipher):
 
     def encrypt(self, text, keyword):
         """
-        Encryption function, takes a text and a keyword argument.
-        Returns the encrypted text
+        Encrypts text using the logic of a Keyword cipher.
+        Takes a text and a keyword argument.
+        Returns the encrypted text.
         """
         self.text = text.upper()
         self.keyword = [char.upper() for char in keyword]
@@ -33,7 +37,8 @@ class Keyword(Cipher):
 
     def decrypt(self, text, keyword):
         """
-        Decrypt function, takes an encrypted text and a keyword.
+        Decrypts text encrypted using a Keyword cipher.
+        Takes an encrypted text and a keyword argument.
         Returns the decrypted text.
         """
         self.text = text.upper()

@@ -3,7 +3,9 @@ from ciphers import Cipher
 
 
 class Atbash(Cipher):
-
+    """
+    Implements the behaviour of an Atbash cipher.
+    """
     def __init__(self):
         self.plaintext = {key: value for key, value
                           in zip(string.ascii_uppercase,
@@ -16,8 +18,8 @@ class Atbash(Cipher):
 
     def encrypt(self, text):
         """
-        Encrypts text using the Atbash cipher.
-        Returns encrypted text.
+        Encrypts text using the logic of an Atbash cipher.
+        Returns the encrypted text.
         """
         self.text = text.upper()
         encoded = ''
@@ -30,8 +32,8 @@ class Atbash(Cipher):
 
     def decrypt(self, text):
         """
-        Decrypts text that has been encrypted with the Atbash cipher.
-        Returns decrypted text.
+        Decrypts text that has been encrypted with an Atbash cipher.
+        Returns the decrypted text.
         """
         self.text = text.upper()
         decoded = ''

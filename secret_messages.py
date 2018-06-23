@@ -6,20 +6,21 @@ from keywords import Keyword
 from affine import Affine
 from atbash import Atbash
 
-working = True
-cipher_choice = True
-enc_dec = True
-letters = string.ascii_uppercase
-
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def repeat():
+    """
+    Checks user input to see if he wants to repeat an action.
+    If user input is equal to 'Y', exits and repeats the action.
+    If user input is equal to 'N', stops everything and exits the program completely.
+    """
     while True:
         x_val = input('Do you want to encrypt or decrypt again? (Y/N) \n')
         if x_val.upper() == 'Y':
+            print('')
             x = True
             break
         elif x_val.upper() == 'N':
@@ -28,7 +29,19 @@ def repeat():
     if not x:
         exit()
 
+
 def play():
+    """
+    Asks the user what cipher he wants to use,
+    in order to encrypt or decrypt a text message.
+    Gives user the option to return the cipher text in 5 characters blocks.
+    Asks user for different input based on cipher selection.
+    Adds a onetime pad as an additional security layer.
+    If encrypting:
+    Returns cipher text encrypted with the chosen cipher and onetime pad.
+    If decrypting:
+    Returns text decrypted with the chosen cipher and onetime pad.
+    """
     working = True
     cipher_choice = True
     enc_dec = True
@@ -36,12 +49,12 @@ def play():
     while working:
         clear_screen()
         print("This is the Secret Messages project for the Treehouse Techdegree. \n"
-              " These are the current available ciphers: \n"
+              "These are the current available ciphers: \n"
               "- Affine \n"
               "- Atbash \n" 
               "- Caesar \n"
               "- Keyword \n"
-              "- Type (Q) to quit.")
+              "- Type (Q) to quit. \n")
         while cipher_choice:
             choice = input("Type the name of the cipher would you like to use? \n")
             if choice.upper() == 'Q':
@@ -61,7 +74,7 @@ def play():
             else:
                 print('Type the name of any available cipher. \n')
 
-        user_text = input('What is your message?(Letters only.) \n')
+        user_text = input('What is your message?(Letters only) \n')
 
         while enc_dec:
             e_or_d = input('Are we going to encrypt or decrypt? \n')
@@ -136,7 +149,7 @@ def play():
                     repeat()
                     break
                 else:
-                    print(value)
+                    print(value + '\n')
                     repeat()
                     break
             elif e_or_d.upper() == 'DECRYPT' and isinstance(cipher, Atbash):
@@ -198,6 +211,7 @@ def play():
                     break
                 else:
                     print(value + '\n')
+                    repeat()
                     break
             elif e_or_d.upper() == 'DECRYPT' and isinstance(cipher, Keyword):
                 ot_pad = input('Type your one time pad, must be the same used for encrypting. \n')
@@ -218,6 +232,7 @@ def play():
                     break
             else:
                 ('Type "encrypt" or "decrypt". \n')
+
 
 if __name__ == '__main__':
     play()

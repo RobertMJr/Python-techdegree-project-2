@@ -13,7 +13,7 @@ class Cipher:
 
     def one_time_pad(self, text, pad, encrypt=True):
         """
-        Implements a one time pad
+        Implements a one time pad: https://en.wikipedia.org/wiki/One-time_pad
        """
         self.alfabet = {key: value for key, value
                         in zip(string.ascii_uppercase, range(0, 26))}
@@ -61,7 +61,7 @@ class Cipher:
     def add_padding(self, text):
         """
         Adds padding to the text.
-        Returns text in blocks of 5 characters
+        Returns text in blocks of 5 characters.
         """
         self.text = text
         special = list(digits)
@@ -87,8 +87,8 @@ class Cipher:
 
     def remove_padding(self, text):
         """
-        Removes padding from text
-        Returns text without the added padding
+        Removes padding from text.
+        Returns text without the added padding.
         """
         self.text = text
         special = list(digits)

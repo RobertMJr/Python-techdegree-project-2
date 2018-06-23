@@ -4,8 +4,7 @@ from ciphers import Cipher
 
 class Affine(Cipher):
     """
-    Affine class
-
+    Implements the behaviour of an Affine cipher.
     """
     def __init__(self):
         self.plaintext = {key: value for key,
@@ -28,11 +27,10 @@ class Affine(Cipher):
 
     def encrypt(self, text, a_key, b_key):
         """
-        Encrypts text using the affine cipher,
-        two numeric keys are required,
-        first key must be coprime with 26.
-
-        Returns the encrypted text
+        Encrypts text using the logic of an Affine cipher.
+        Two numeric keys are required,
+        First key must be coprime with 26.
+        Returns the encrypted text.
         """
         self.text = text.upper()
         self.a_key = a_key
@@ -54,11 +52,9 @@ class Affine(Cipher):
 
     def decrypt(self, text, a_key, b_key):
         """
-        Decrypts text encrypted with the affine cipher,
-        two numeric keys are required,
-        same keys  that were used for encrypting.
-
-        Returns the decrypted text
+        Decrypts text encrypted using an Affine cipher.
+        Two numeric keys are required, the same keys that were used for encrypting.
+        Returns the decrypted text.
         """
         self.text = text.upper()
         self.a_key = self.modular_inverse[a_key]

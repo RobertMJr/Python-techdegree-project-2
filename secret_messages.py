@@ -230,8 +230,6 @@ def play():
                     print(ot_val + '\n')
                     repeat()
                     break
-            else:
-                ('Type "encrypt" or "decrypt". \n')
 
 
 if __name__ == '__main__':

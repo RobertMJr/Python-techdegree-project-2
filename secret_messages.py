@@ -13,7 +13,7 @@ def clear_screen():
 
 def get_keys():
     """
-
+    Ensures user chooses correct alpha and magnitude keys.
     Returns a tuple containing the alpha key and the magnitude.
     """
     coprime = [1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25]
@@ -37,13 +37,31 @@ def get_keys():
 
 def get_keyword():
     """
-
+    Ensures user chooses a valid keyword - contains alphabetic characters only.
     Returns the keyword so long as it is made of alphabetic characters only.
     """
     while True:
         keyword_choice = input("Type in your keyword (letters only): \n")
         if keyword_choice.isalpha():
             return keyword_choice
+
+
+def yes_or_no():
+    while True:
+        user_choice = input('Do you want the output to be displayed in blocks of 5? (Y/N) \n')
+        if user_choice.upper() == 'Y':
+            return user_choice.upper()
+        elif user_choice.upper() == 'N':
+            return user_choice.upper()
+
+
+def y_o_n():
+    while True:
+        user_choice = input('Was your cipher text returned in blocks of 5? (Y/N) \n')
+        if user_choice.upper() == 'Y':
+            return user_choice.upper()
+        elif user_choice.upper() == 'N':
+            return user_choice.upper()
 
 
 def repeat():
@@ -118,7 +136,7 @@ def play():
                 ot_pad  = input('Type your one time pad. \n')
                 ot_val = cipher.one_time_pad(user_text, ot_pad)
                 value = cipher.encrypt(ot_val,alpha, beta)
-                block_choice = input('Do you want the output to be displayed in blocks of 5? (Y/N) \n')
+                block_choice = yes_or_no()
                 if block_choice.upper() == 'Y':
                     value = cipher.add_padding(value)
                     print(value + '\n')
@@ -131,7 +149,7 @@ def play():
             elif e_or_d.upper() == 'DECRYPT' and isinstance(cipher, Affine):
                 alpha, beta = get_keys()
                 ot_pad  = input('Type your one time pad, must be the same used for encrypting. \n')
-                block_choice = input('Was your cipher text returned in blocks of 5? (Y/N) \n')
+                block_choice = y_o_n()
                 if block_choice.upper() == 'Y':
                     no_block = cipher.remove_padding(user_text)
                     value = cipher.decrypt(no_block, alpha, beta)
@@ -149,7 +167,7 @@ def play():
                 ot_pad = input('Type your one time pad. \n')
                 ot_val = cipher.one_time_pad(user_text, ot_pad)
                 value = cipher.encrypt(ot_val)
-                block_choice = input('Do you want the output to be displayed in blocks of 5? (Y/N) \n')
+                block_choice = yes_or_no()
                 if block_choice.upper() == 'Y':
                     value = cipher.add_padding(value)
                     print(value + '\n')
@@ -161,7 +179,7 @@ def play():
                     break
             elif e_or_d.upper() == 'DECRYPT' and isinstance(cipher, Atbash):
                 ot_pad = input('Type your one time pad, must be the same used for encrypting. \n')
-                block_choice = input('Was your cipher text returned in blocks of 5? (Y/N) \n')
+                block_choice = y_o_n()
                 if block_choice.upper() == 'Y':
                     no_block = cipher.remove_padding(user_text)
                     value = cipher.decrypt(no_block)
@@ -179,7 +197,7 @@ def play():
                 ot_pad = input('Type your one time pad. \n')
                 ot_val = cipher.one_time_pad(user_text, ot_pad)
                 value = cipher.encrypt(ot_val)
-                block_choice = input('Do you want the output to be displayed in blocks of 5? (Y/N) \n')
+                block_choice = yes_or_no()
                 if block_choice.upper() == 'Y':
                     value = cipher.add_padding(value)
                     print(value + '\n')
@@ -191,7 +209,7 @@ def play():
                     break
             elif e_or_d.upper() == 'DECRYPT' and isinstance(cipher, Caesar):
                 ot_pad = input('Type your one time pad, must be the same used for encrypting. \n')
-                block_choice = input('Was your cipher text returned in blocks of 5? (Y/N) \n')
+                block_choice = y_o_n()
                 if block_choice.upper() == 'Y':
                     no_block = cipher.remove_padding(user_text)
                     value = cipher.decrypt(no_block)
@@ -210,7 +228,7 @@ def play():
                 keyword_choice = get_keyword()
                 ot_val = cipher.one_time_pad(user_text, ot_pad)
                 value = cipher.encrypt(ot_val, keyword_choice)
-                block_choice = input('Do you want the output to be displayed in blocks of 5? (Y/N) \n')
+                block_choice = yes_or_no()
                 if block_choice.upper() == 'Y':
                     value = cipher.add_padding(value)
                     print(value + '\n')
@@ -222,7 +240,7 @@ def play():
                     break
             elif e_or_d.upper() == 'DECRYPT' and isinstance(cipher, Keyword):
                 ot_pad = input('Type your one time pad, must be the same used for encrypting. \n')
-                block_choice = input('Was your cipher text returned in blocks of 5? (Y/N) \n')
+                block_choice = y_o_n()
                 keyword_choice = get_keyword()
                 if block_choice.upper() == 'Y':
                     no_block = cipher.remove_padding(user_text)

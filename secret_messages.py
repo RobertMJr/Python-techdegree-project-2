@@ -11,6 +11,41 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
+def get_keys():
+    """
+
+    Returns a tuple containing the alpha key and the magnitude.
+    """
+    coprime = [1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25]
+    alpha_key = 0.1
+    while alpha_key not in coprime:
+        alpha_key = input('Choose the first key. Must be a coprime'
+                          ' of 26.  \n')
+        try:
+            alpha_key = int(alpha_key)
+        except ValueError:
+            print('This only works with integers. \n')
+    while True:
+        magnitude = input('Chose the magnitude key, must be a number. \n')
+        try:
+            magnitude = int(magnitude)
+            break
+        except ValueError:
+            print('This only works with integers. \n')
+    return alpha_key, magnitude
+
+
+def get_keyword():
+    """
+
+    Returns the keyword so long as it is made of alphabetic characters only.
+    """
+    while True:
+        keyword_choice = input("Type in your keyword (letters only): \n")
+        if keyword_choice.isalpha():
+            return keyword_choice
+
+
 def repeat():
     """
     Checks user input to see if he wants to repeat an action.
@@ -79,28 +114,10 @@ def play():
         while enc_dec:
             e_or_d = input('Are we going to encrypt or decrypt? \n')
             if e_or_d.upper() == 'ENCRYPT' and isinstance(cipher, Affine):
-                alpha_key = input('Choose the first key,  must be a number that'
-                                  ' is coprime with the number twenty six (26). \n')
-                try:
-                    alpha_key = int(alpha_key)
-                except ValueError:
-                    print('This only works with integers. \n')
-                coprime = [1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25]
-                while  alpha_key not in coprime:
-                    alpha_key = input('Choose the first key. Must be a coprime'
-                                      'of 26.  \n')
-                    try:
-                        alpha_key = int(alpha_key)
-                    except ValueError:
-                        print('This only works with integers. \n')
-                magnitude = input('Chose the magnitude key, must be a number. \n')
-                try:
-                    magnitude = int(magnitude)
-                except ValueError:
-                    print('This only works with integers. \n')
+                alpha, beta = get_keys()
                 ot_pad  = input('Type your one time pad. \n')
                 ot_val = cipher.one_time_pad(user_text, ot_pad)
-                value = cipher.encrypt(ot_val,alpha_key, magnitude)
+                value = cipher.encrypt(ot_val,alpha, beta)
                 block_choice = input('Do you want the output to be displayed in blocks of 5? (Y/N) \n')
                 if block_choice.upper() == 'Y':
                     value = cipher.add_padding(value)
@@ -112,28 +129,18 @@ def play():
                     repeat()
                     break
             elif e_or_d.upper() == 'DECRYPT' and isinstance(cipher, Affine):
-                alpha_key = input('Type in the first key that was used,  must be a number that'
-                                  ' is coprime with the number twenty six (26). \n')
-                try:
-                    alpha_key = int(alpha_key)
-                except ValueError:
-                    print('This only works with integers. \n')
-                magnitude = input('Type in the magnitude key that was used, must be a number. \n')
-                try:
-                    magnitude = int(magnitude)
-                except ValueError:
-                    print('This only works with integers. \n')
+                alpha, beta = get_keys()
                 ot_pad  = input('Type your one time pad, must be the same used for encrypting. \n')
                 block_choice = input('Was your cipher text returned in blocks of 5? (Y/N) \n')
                 if block_choice.upper() == 'Y':
                     no_block = cipher.remove_padding(user_text)
-                    value = cipher.decrypt(no_block, alpha_key, magnitude)
+                    value = cipher.decrypt(no_block, alpha, beta)
                     ot_val = cipher.one_time_pad(value, ot_pad, encrypt=False)
                     print(ot_val + '\n')
                     repeat()
                     break
                 else:
-                    value = cipher.decrypt(user_text, alpha_key, magnitude)
+                    value = cipher.decrypt(user_text, alpha, beta)
                     ot_val = cipher.one_time_pad(value, ot_pad, encrypt=False)
                     print(ot_val + '\n')
                     repeat()
@@ -200,7 +207,7 @@ def play():
                     break
             elif e_or_d.upper() == 'ENCRYPT' and isinstance(cipher, Keyword):
                 ot_pad = input('Type your one time pad. \n')
-                keyword_choice = input("Type in your keyword: \n")
+                keyword_choice = get_keyword()
                 ot_val = cipher.one_time_pad(user_text, ot_pad)
                 value = cipher.encrypt(ot_val, keyword_choice)
                 block_choice = input('Do you want the output to be displayed in blocks of 5? (Y/N) \n')
@@ -216,7 +223,7 @@ def play():
             elif e_or_d.upper() == 'DECRYPT' and isinstance(cipher, Keyword):
                 ot_pad = input('Type your one time pad, must be the same used for encrypting. \n')
                 block_choice = input('Was your cipher text returned in blocks of 5? (Y/N) \n')
-                keyword_choice = input("What was your keyword: \n")
+                keyword_choice = get_keyword()
                 if block_choice.upper() == 'Y':
                     no_block = cipher.remove_padding(user_text)
                     value = cipher.decrypt(no_block, keyword_choice)
@@ -225,7 +232,7 @@ def play():
                     repeat()
                     break
                 else:
-                    value = cipher.decrypt(user_text)
+                    value = cipher.decrypt(user_text, keyword_choice)
                     ot_val = cipher.one_time_pad(value, ot_pad, encrypt=False)
                     print(ot_val + '\n')
                     repeat()

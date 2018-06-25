@@ -28,6 +28,8 @@ class Atbash(Cipher):
                 encoded += self.plaintext[x]
             except IndexError:
                 encoded += x
+            except KeyError:
+                pass
         return encoded
 
     def decrypt(self, text):

@@ -47,6 +47,10 @@ def get_keyword():
 
 
 def yes_or_no():
+    """
+    Used for encryption.
+    Returns user input once it ensures it is an Yes or a No
+    """
     while True:
         user_choice = input('Do you want the output to be displayed in blocks of 5? (Y/N) \n')
         if user_choice.upper() == 'Y':
@@ -56,6 +60,10 @@ def yes_or_no():
 
 
 def y_o_n():
+    """
+    Used for decryption.
+    Returns user input once it ensures it is an Yes or a No
+    """
     while True:
         user_choice = input('Was your cipher text returned in blocks of 5? (Y/N) \n')
         if user_choice.upper() == 'Y':
